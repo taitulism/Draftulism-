@@ -32,5 +32,5 @@ So running "Draftulism" is as simple as clicking on a bookmark.
 
 How To Install?
 ---------------
-<a href="javascript:(function(){ alert(1); })()"> qwe </a>
+
 
