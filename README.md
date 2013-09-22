@@ -33,7 +33,7 @@ So running "Draftulism" is as simple as clicking on a bookmark.
 
 How To Install?
 ---------------
-1. Create a bookmark
+1. Create a new bookmark (right click on the bookmarks toolbar and choose "add page" in chrome or  "new bookmark" in firefox)
 2. Give it a name: Draftulism
 3. In the location/URL field enter the line of code below
 4. Save the bookmark and you're done
