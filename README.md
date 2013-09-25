@@ -48,10 +48,9 @@ javascript:(function(win,doc){function toArr(like){return Array.prototype.slice.
 How To Use?
 -----------
 1. Go to [Twitter](https://twitter.com)
-2. Go to your profile by clicking "Me" (top menu).
-3. Click on your new "Dratulism" bookmark. You will see a floating element in the top right corner with the title "Draftulism".
-4. Now compose a new tweet using Twitter's blue button on the top right corner (top menu). You will notice a new button "Save Draft".
-5. Type in your tweet and click "Save Draft". Your new draft will then shown in the floating element and saved in your browser's local storage.
+2. Click on your new "Dratulism" bookmark. You will see a floating element in the top right corner with the title "Draftulism".
+3. Now compose a new tweet using Twitter's blue button on the top right corner (top menu). You will notice a new button "Save Draft".
+4. Type in your tweet and click "Save Draft". Your new draft will then shown in the floating element and saved in your browser's local storage.
 
 To publish a draft just click it (on the floating element)
 
