@@ -51,7 +51,7 @@
 	}
 
 	function getDrafts () {
-		var drafts = locStor.get('drafts');
+		var drafts = locStor.get('Draftulism');
 		return drafts || [];
 	}
 
@@ -70,7 +70,7 @@
 		if (!isDraftExist(draft)) {
 			ul = draftsDiv.children[1];
 			drafts.push(draft);
-			locStor.set('drafts', drafts);
+			locStor.set('Draftulism', drafts);
 			li = createLI(draft, ul.children.length);
 			ul.insertBefore(li, ul.firstElementChild);
 		}
@@ -82,7 +82,7 @@
 		var LIs    = ul.children;
 
 		drafts.splice(i, 1);
-		locStor.set('drafts', drafts);
+		locStor.set('Draftulism', drafts);
 	
 		ul.removeChild(LIs[LIs.length- 1 - i]);
 
