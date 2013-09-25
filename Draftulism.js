@@ -138,7 +138,10 @@
 		var draftsDiv = doc.createElement('div');
 		var draftsUL  = doc.createElement('ul');
 		var title     = doc.createElement('div');
+		var taitulism = doc.createElement('div') ;
 		var tempFrag  = doc.createDocumentFragment();
+
+		taitulism.innerHTML = '<a href="https://twitter.com/taitulism">@taitulsm</a>';
 
 		if (drafts.length > 0) {
 			drafts.forEach(function(draftTxt, i){
@@ -162,7 +165,7 @@
 			'zIndex'         : '99999',
 			'padding'        : '20px',
 			'borderRadius'   : '7px',
-			'maxHeight'      : (window.innerHeight - 20) + 'px',
+			'maxHeight'      : (window.innerHeight - 200) + 'px',
 			'overflow'       : 'auto',
 			'boxShadow'      : '2px 2px 2px rgb(141, 59, 92)'
 		});
@@ -184,6 +187,7 @@
 		draftsUL.appendChild(tempFrag);
 		draftsDiv.appendChild(title);
 		draftsDiv.appendChild(draftsUL);
+		draftsDiv.appendChild(taitulism);
 		draftsDiv.id = 'draftulism';
 
 		return draftsDiv;
