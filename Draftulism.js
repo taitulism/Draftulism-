@@ -1,4 +1,23 @@
 ;(function(win, doc) {
+	'use strict';
+	function log (arg) {
+		console.dir(arg);
+	}
+
+	function $id (str) {
+		return doc.getElementById(str);
+	}
+
+	function $cls (str, ctx) {
+		ctx = ctx || doc;
+		return ctx.getElementsByClassName(str);
+	}
+
+	function $tag (str, ctx) {
+		ctx = ctx || doc;
+		return ctx.getElementsByTagName(str);
+	}
+
 	function toArr (like) {
 		return Array.prototype.slice.call(like);
 	}
@@ -30,27 +49,6 @@
 
 		return styleTag;
 	}
-
-	var locStor = (function() {
-		win.Storage.prototype.set = function(key, value) {
-			this.setItem(key, JSON.stringify(value));
-		};
-
-		win.Storage.prototype.get = function(key) {
-			var value = this.getItem(key);
-			return value && JSON.parse(value);
-		};
-
-		return {
-			set: function(key, val) {
-				win.localStorage.set(key, val);
-			},
-
-			get: function(key) {
-				return win.localStorage.get(key);
-			}
-		};
-	}());
 
 	function getDrafts () {
 		var drafts = locStor.get('drafts');
@@ -160,12 +158,13 @@
 			'top'            : '20px',
 			'right'          : '20px',
 			'color'          : 'white',
-			'backgroundColor': 'black',
+			'backgroundColor': '#022330',
 			'zIndex'         : '99999',
 			'padding'        : '20px',
 			'borderRadius'   : '7px',
 			'maxHeight'      : (window.innerHeight - 20) + 'px',
-			'overflow'       : 'auto'
+			'overflow'       : 'auto',
+			'boxShadow'      : '2px 2px 2px rgb(141, 59, 92)'
 		});
 
 		title.innerHTML = 'Draftulism';
@@ -214,24 +213,62 @@
 		draftsDiv.style.display = 'none';
 	}
 
-	var draftulism = doc.getElementById('draftulism');
+	var draftulism, locStor, winloc, path, geo, head, body, composeBtn, textArea, overlay, afterTweetBtn, draftsDiv, styleTag, draftBtn, tweetBtn;
+
+	locStor = (function() {
+		win.Storage.prototype.set = function(key, value) {
+			this.setItem(key, JSON.stringify(value));
+		};
+
+		win.Storage.prototype.get = function(key) {
+			var value = this.getItem(key);
+			return value && JSON.parse(value);
+		};
+
+		return {
+			set: function(key, val) {
+				win.localStorage.set(key, val);
+			},
+
+			get: function(key) {
+				return win.localStorage.get(key);
+			}
+		};
+	}());
+
+////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+
+	winloc = win.location;
+	path   = winloc.pathname;
+
+	if (winloc.hostname !== 'twitter.com') {
+		alert('This Bookmarklet runs only in Twitter.com');
+		return false;
+	}
+	
+	draftulism = $id('draftulism');
+
 	if (draftulism) {
 		draftulism.style.display = 'block';
 		return;
 	}
 
+
 	// shrink geo button width
-	var geo = document.getElementsByClassName('geo-status')[0];
+	geo = (path === '/') ? $cls('geo-status')[1] : $cls('geo-status')[0];
 	geo.style.width = '100px';
 
-	var head       = doc.getElementsByTagName('head')[0];
-	var body       = doc.getElementsByTagName('body')[0];
-	var composeBtn = doc.getElementById('global-new-tweet-button');
-	var textArea   = doc.getElementById('tweet-box-global');
-	var overlay    = doc.getElementById('global-tweet-dialog');
+	head       = $tag('head')[0];
+	body       = $tag('body')[0];
+	composeBtn = $id('global-new-tweet-button');
+	textArea   = $id('tweet-box-global');
+	overlay    = $id('global-tweet-dialog');
 
-	var draftsDiv  = createDraftsDiv();
-	var styleTag   = createStyleTag([
+	draftsDiv  = createDraftsDiv();
+
+	styleTag   = createStyleTag([
 		{
 			selector: '.draft_li',
 			style: {
@@ -269,7 +306,7 @@
 		}
 	]);
 
-	var draftBtn = createDraftBtn();
+	draftBtn = createDraftBtn();
 
 	textArea.addEventListener('keyup', function(){
 		var tweet = getTweet();
@@ -283,13 +320,14 @@
 	}, false);
 
 	head.appendChild(styleTag);
+
 	body.appendChild(draftsDiv);
 
+	tweetBtn = (path === '/') ? $cls('tweet-button')[3] : $cls('tweet-button')[2];
 
-	var tweetBtn = document.getElementsByClassName('tweet-button')[2];
-	
+	afterTweetBtn = tweetBtn.nextElementSibling || tweetBtn;
 
-	tweetBtn.parentNode.insertBefore(draftBtn, tweetBtn.nextElementSibling);
+	tweetBtn.parentNode.insertBefore(draftBtn, afterTweetBtn);
 
 	win.draftulism = win.draftulism || {};
 	win.draftulism.loaded = true;
